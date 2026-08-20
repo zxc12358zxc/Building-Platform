@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>登录 - 高新商企楼宇一体化管理平台</title>
+  <style>
+    :root{--navy:#101c2d;--navy-2:#17263b;--red:#c82834;--red-dark:#9f1f29;--ink:#182230;--muted:#687386;--line:#dfe4ea}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f1925 0%,#1a2d44 50%,#101c2d 100%);font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;font-size:14px;color:var(--ink)}
+    .login-wrap{width:100%;max-width:420px;padding:20px}
+    .login-card{background:#fff;border-radius:14px;box-shadow:0 24px 70px rgba(8,18,30,.35);overflow:hidden}
+    .login-header{background:var(--navy);padding:36px 32px 28px;text-align:center;position:relative;overflow:hidden}
+    .login-header:after{content:"";position:absolute;right:-40px;bottom:-40px;width:120px;height:120px;border:16px solid rgba(255,255,255,.04);border-radius:50%}
+    .brand-mark{width:56px;height:56px;background:var(--red);display:grid;place-items:center;font-weight:900;font-size:24px;border-radius:10px;margin:0 auto 14px;color:#fff}
+    .login-header h1{font-size:20px;font-weight:800;color:#fff;letter-spacing:.5px}
+    .login-header p{font-size:12px;color:#9aabc0;margin-top:6px}
+    .login-body{padding:32px}
+    .form-group{margin-bottom:18px}
+    .form-label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:7px}
+    .form-input{width:100%;height:46px;border:1.5px solid var(--line);border-radius:7px;padding:0 14px;font-size:14px;font-family:inherit;transition:.18s ease;background:#f9fafb}
+    .form-input:focus{outline:none;border-color:var(--red);background:#fff;box-shadow:0 0 0 3px rgba(200,40,52,.08)}
+    .btn-login{width:100%;height:48px;background:var(--red);border:none;border-radius:7px;color:#fff;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;transition:.18s ease;margin-top:6px}
+    .btn-login:hover{background:var(--red-dark);transform:translateY(-1px);box-shadow:0 6px 20px rgba(200,40,52,.3)}
+    .btn-login:active{transform:none}
+    .btn-login:disabled{opacity:.6;cursor:not-allowed;transform:none}
+    .error-msg{background:#fdecee;color:var(--red);padding:10px 14px;border-radius:6px;font-size:12px;font-weight:600;margin-bottom:14px;display:none;align-items:center;gap:8px}
+    .error-msg.show{display:flex;animation:shake .3s ease}
+    @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+    .login-foot{text-align:center;padding:0 32px 28px;font-size:11px;color:var(--muted)}
+    .login-foot a{color:var(--red);text-decoration:none;font-weight:700}
+    .spinner{display:inline-block;width:16px;height:16px;border:2.5px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:7px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .field-icon{position:relative}
+    .field-icon .form-input{padding-right:42px}
+    .field-icon .icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px;cursor:pointer;user-select:none}
+    .default-hint{margin-top:14px;padding:10px 14px;background:#f4f6f8;border-radius:6px;font-size:11px;color:var(--muted);text-align:center;line-height:1.6}
+    .default-hint b{color:var(--ink)}
+  </style>
+</head>
+<body>
+  <div class="login-wrap">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="brand-mark">高</div>
+        <h1>高新商企楼宇一体化管理平台</h1>
+        <p>用户登录</p>
+      </div>
+      <div class="login-body">
+        <div class="error-msg" id="errorMsg"></div>
+        <form id="loginForm" onsubmit="return false">
+          <div class="form-group">
+            <label class="form-label" for="username">用户名</label>
+            <input type="text" id="username" class="form-input" placeholder="请输入用户名" autocomplete="username" autofocus>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="password">密码</label>
+            <div class="field-icon">
+              <input type="password" id="password" class="form-input" placeholder="请输入密码" autocomplete="current-password">
+              <span class="icon" id="togglePwd" title="显示/隐藏密码">👁</span>
+            </div>
+          </div>
+          <button type="submit" class="btn-login" id="loginBtn">登 录</button>
+        </form>
+        <div class="default-hint">
+          默认管理员账号: <b>admin</b> / 密码: <b>admin123</b><br>
+          请登录后及时修改密码
+        </div>
+      </div>
+      <div class="login-foot">
+        <p>高新商企楼宇收入、客户、网格、楼长与专线一体化管理平台</p>
+      </div>
+    </div>
+  </div>
+  <script>
+    const form = document.getElementById('loginForm');
+    const errEl = document.getElementById('errorMsg');
+    const btn = document.getElementById('loginBtn');
+
+    document.getElementById('togglePwd').addEventListener('click', function() {
+      const pwd = document.getElementById('password');
+      pwd.type = pwd.type === 'password' ? 'text' : 'password';
+      this.textContent = pwd.type === 'password' ? '👁' : '🔒';
+    });
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+
+      if (!username || !password) {
+        showError('请输入用户名和密码');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span>登录中...';
+
+      try {
+        const resp = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const data = await resp.json();
+
+        if (resp.ok && data.success) {
+          btn.innerHTML = '登录成功，跳转中...';
+          window.location.href = '/';
+        } else {
+          showError(data.error || '登录失败');
+          btn.disabled = false;
+          btn.innerHTML = '登 录';
+        }
+      } catch (err) {
+        showError('网络错误，请重试');
+        btn.disabled = false;
+        btn.innerHTML = '登 录';
+      }
+    });
+
+    function showError(msg) {
+      errEl.textContent = msg;
+      errEl.classList.add('show');
+      setTimeout(() => errEl.classList.remove('show'), 4000);
+    }
+  </script>
+</body>
+</html>
