@@ -1,0 +1,15 @@
+{
+  "name": "building-management-platform",
+  "version": "1.0.0",
+  "description": "高新商企楼宇一体化管理平台 - 带用户认证和管理员功能",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "init-db": "node init-db.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "bcryptjs": "^2.4.3"
+  }
+}
