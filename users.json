@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "$2a$10$/TqMKJipo/dPJ.6aG9k6te.pLfhm23AIBTKKLmNexSwgSoQca5YU.",
+      "display_name": "系统管理员",
+      "role": "admin",
+      "department": "信息中心",
+      "active": 1,
+      "created_at": "2026-08-20 03:17:18",
+      "updated_at": "2026-08-20 03:17:18"
+    }
+  ],
+  "nextId": 2
+}
